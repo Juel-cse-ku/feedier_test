@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2a544b8f-5af7-4165-8f83-0706415ad340" name="Default Changelist" comment="" />
+    <list default="true" id="2a544b8f-5af7-4165-8f83-0706415ad340" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -157,7 +159,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1603792328712</updated>
-      <workItem from="1603792329807" duration="7019000" />
+      <workItem from="1603792329807" duration="7536000" />
     </task>
     <task id="LOCAL-00001" summary="Authentication added.">
       <created>1603802789317</created>
