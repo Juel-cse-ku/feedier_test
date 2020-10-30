@@ -15,7 +15,14 @@ class QuestionController extends Controller
      */
     public function index()
     {
-       dd(QuestionType::find(1)->questions()->first()->name);
+      Question::create([
+          'question_type_id' => 1,
+          'name' => "Who is the author of android?",
+          'date' => "29-10-2020",
+          'description' => "",
+          'user_id' => 1
+      ]);
+      echo "success";
     }
 
     /**

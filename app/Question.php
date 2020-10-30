@@ -13,6 +13,15 @@ class Question extends Model
     protected $fillable = ['name', 'question_type_id', 'name', 'date', 'description', 'user_id'];
 
     /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'date'     => 'date',
+    ];
+
+    /**
      * Get the user by which the question is raised.
      */
     public function user()
