@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
+use App\Mail\AnswerInfo;
 use App\Question;
 use App\QuestionType;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class QuestionController extends Controller
 {
@@ -15,14 +19,29 @@ class QuestionController extends Controller
      */
     public function index()
     {
-      Question::create([
-          'question_type_id' => 1,
-          'name' => "Who is the author of android?",
-          'date' => "29-10-2020",
-          'description' => "",
-          'user_id' => 1
-      ]);
-      echo "success";
+        dd(Question::doesntHave('answers')->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))->get());echo "success";
+
+//        $answers = new Answer();
+//        dd($answers->getLast5Answers(1));
+//        Mail::to('app.answerinfo@gmail.com')->send(new AnswerInfo());
+
+       /* QuestionType::create([
+            'name' => "textarea",
+            'description' => ""
+        ]);
+        Question::create([
+            'question_type_id' => 1,
+            'name' => "Who is the author of android?",
+            'date' => "29-10-2020",
+            'description' => "",
+            'user_id' => 1
+        ]);
+        Answer::create([
+            'name' => "Google",
+            'question_id' => 1,
+            'user_id' => 1
+        ]);
+        echo "success";*/
     }
 
     /**
@@ -38,7 +57,7 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +68,7 @@ class QuestionController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param \App\Question $question
      * @return \Illuminate\Http\Response
      */
     public function show(Question $question)
@@ -60,7 +79,7 @@ class QuestionController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Question  $question
+     * @param \App\Question $question
      * @return \Illuminate\Http\Response
      */
     public function edit(Question $question)
@@ -71,8 +90,8 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Question  $question
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Question $question
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Question $question)
@@ -83,7 +102,7 @@ class QuestionController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Question  $question
+     * @param \App\Question $question
      * @return \Illuminate\Http\Response
      */
     public function destroy(Question $question)

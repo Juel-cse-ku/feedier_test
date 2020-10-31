@@ -18,6 +18,7 @@ class CreateAnswersTable extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->enum('is_verified', array('0', '1'))->default('0');
+            $table->foreignId('question_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

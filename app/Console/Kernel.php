@@ -24,7 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('job:answerInfoEmailSend')->cron('0 8 */2 * *');
+         $schedule->command('command:QuestionSoftDelete')->daily();
     }
 
     /**

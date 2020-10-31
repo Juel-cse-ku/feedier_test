@@ -17,7 +17,6 @@ class CreateQuestionsTable extends Migration
             $table->id();
             $table->foreignId('question_type_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('name');
-            $table->date('date');
             $table->string('description')->nullable();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
