@@ -8,6 +8,7 @@ use App\Question;
 use App\QuestionType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class QuestionController extends Controller
@@ -19,7 +20,10 @@ class QuestionController extends Controller
      */
     public function index()
     {
-        dd(Question::doesntHave('answers')->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))->get());echo "success";
+        DB::table('test_tbl')->insert([
+            'date_time' => date('Y-m-d H:i:s')
+        ]);
+//        dd(Question::doesntHave('answers')->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))->get());echo "success";
 
 //        $answers = new Answer();
 //        dd($answers->getLast5Answers(1));
