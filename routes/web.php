@@ -22,6 +22,3 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/question', function () {
-    return response()->json(Answer::paginate(2));
-});//'QuestionController@index')->name('question');
