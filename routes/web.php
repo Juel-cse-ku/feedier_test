@@ -1,5 +1,6 @@
 <?php
 
+use App\Answer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -21,4 +22,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/question', 'QuestionController@index')->name('question');
+Route::get('/question', function () {
+    return response()->json(Answer::paginate(2));
+});//'QuestionController@index')->name('question');
