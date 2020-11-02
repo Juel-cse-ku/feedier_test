@@ -16,7 +16,7 @@ class QuestionController extends Controller
      */
     public function updateQuestion(Request $request)
     {
-        if (empty($request->id)) return response()->json("Please provide question id.");
+        if (empty($request->id)) return response()->json("Please provide a question id.");
 
         $question = Question::find($request->id);
         if (isset($question)) {

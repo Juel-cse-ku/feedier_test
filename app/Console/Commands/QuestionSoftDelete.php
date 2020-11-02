@@ -38,8 +38,10 @@ class QuestionSoftDelete extends Command
      */
     public function handle()
     {
+        //Answer::where('name', '')->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))->delete();
         return Question::doesntHave('answers')
-            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))
+            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-1 hours")))
+//            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))
             ->delete();
     }
 }

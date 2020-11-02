@@ -2,10 +2,9 @@
 
 namespace App\Console;
 
-use App\Console\Commands\AnswerInfoEmailJob;
+use App\Jobs\EmailSendJob;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Illuminate\Support\Facades\DB;
 
 class Kernel extends ConsoleKernel
 {
@@ -21,23 +20,13 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      *
-     * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
+     * @param Schedule $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
-//         $schedule->command('job:answerInfoEmailSend')->cron('0 8 */2 * *');
-//         $schedule->command('command:QuestionSoftDelete')->daily();
-
-        $schedule->job(new AnswerInfoEmailJob)->everyFiveMinutes();
-        $schedule->call(function () {
-            DB::table('test_tbl')->insert([
-                'date_time' => date('Y-m-d H:i:s')
-            ]);
-        })->everyTwoMinutes();
-
-//        $schedule->job(new AnswerInfoEmailJob)->cron('0 8 */2 * *');
-//        $schedule->command('command:QuestionSoftDelete')->daily();
+        $schedule->job(new EmailSendJob)->cron('0 8 */2 * *');
+        $schedule->command('command:answerSoftDelete')->daily();
     }
 
     /**

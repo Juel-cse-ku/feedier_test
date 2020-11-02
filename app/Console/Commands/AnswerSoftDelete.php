@@ -2,25 +2,24 @@
 
 namespace App\Console\Commands;
 
-use App\Mail\AnswerInfo;
+use App\Answer;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Mail;
 
-class AnswerInfoEmailJob extends Command
+class AnswerSoftDelete extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'command:answerInfoEmailSend';
+    protected $signature = 'command:answerSoftDelete';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Send email to app admin after every 2 days at 8 am UTC.';
+    protected $description = 'Soft Delete empty value answers on every 24 hours.';
 
     /**
      * Create a new command instance.
@@ -33,12 +32,14 @@ class AnswerInfoEmailJob extends Command
     }
 
     /**
-     * Send email to app admin.
+     * Execute the console command.
      *
      * @return void
      */
     public function handle()
     {
-        Mail::to('app.answerinfo@gmail.com')->send(new AnswerInfo());
+        Answer::where('name', '')
+            ->where('created_at', '>=', date('Y-m-d H:i:s', strtotime("-24 hours")))
+            ->delete();
     }
 }

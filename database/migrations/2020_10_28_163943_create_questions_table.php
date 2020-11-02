@@ -20,7 +20,6 @@ class CreateQuestionsTable extends Migration
             $table->string('description')->nullable();
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
-            $table->softDeletes('deleted_at', 0);
         });
     }
 

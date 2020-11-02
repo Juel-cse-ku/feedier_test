@@ -14,6 +14,8 @@ class QuestionType extends Model
 
     /**
      * Get all questions for this question type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function questions()
     {

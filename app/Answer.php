@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\DB;
 
 /**
@@ -10,14 +11,18 @@ use Illuminate\Support\Facades\DB;
  */
 class Answer extends Model
 {
+    use SoftDeletes;
+
     /**
      * The attributes that are mass assignable.
      * @var array
      */
-    protected $fillable = ['name', 'description', 'is_verified', 'user_id', 'question_id'];
+    protected $fillable = ['name', 'description', 'user_id', 'question_id'];
 
     /**
      * Get the question of this answer.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function question()
     {
@@ -26,12 +31,19 @@ class Answer extends Model
 
     /**
      * Get the question's question type.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOneThrough
      */
     public function questionType()
     {
         return $this->hasOneThrough('App\QuestionType', 'App\Question');
     }
 
+    /**
+     * Count answers submitted by last 48 hours.
+     *
+     * @return int
+     */
     public function countAnswersByLast48Hours() {
         return DB::table('answers')
             ->join('questions', 'questions.id', '=', 'answers.question_id')
@@ -41,6 +53,11 @@ class Answer extends Model
             ->count();
     }
 
+    /**
+     * Get last 5 submitted answers.
+     *
+     * @return \Illuminate\Support\Collection
+     */
     public function getLast5Answers() {
         return DB::table('answers')
             ->select('answers.name')
