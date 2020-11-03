@@ -8,78 +8,26 @@ use Illuminate\Http\Request;
 class QuestionController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @api question-update
+     * @url http://127.0.0.1:8000/api/question-update
      *
-     * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function updateQuestion(Request $request)
     {
-        //
-    }
+        if (empty($request->id)) return response()->json("Please provide a question id.");
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+        $question = Question::find($request->id);
+        if (isset($question)) {
+            if (isset($request->question_type_id)) $question->question_type_id = $request->question_type_id;
+            if (isset($request->name)) $question->name = $request->name;
+            if (isset($request->description)) $question->description = $request->description;
+            $question->save();
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Question $question)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Question $question)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Question $question)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Question  $question
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Question $question)
-    {
-        //
+            return response()->json($question->wasChanged() ? "Question updated successfully." : "Nothing to update.");
+        } else {
+            return response()->json("Question not found.");
+        }
     }
 }
